@@ -1,9 +1,9 @@
 {
     "name": "My Integration",
-    "version": "1.0.0",
+    "version": "1.2.0",
     "category": "Technical",
-    "summary": "FINTRAC Control integration hooks for Odoo",
-    "depends": ["base"],
+    "summary": "FINTRAC Control integration — suppliers, CRM hooks",
+    "depends": ["base", "contacts", "crm", "purchase"],
     "installable": True,
     "application": False,
     "license": "LGPL-3",

@@ -1,1 +1,1 @@
-# Custom models for Fintrack ↔ Odoo sync will live here.
+from . import crm_lead, res_partner
