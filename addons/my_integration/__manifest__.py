@@ -1,9 +1,12 @@
 {
     "name": "My Integration",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "category": "Technical",
-    "summary": "FINTRAC Control integration — suppliers, CRM hooks",
-    "depends": ["base", "contacts", "crm", "purchase"],
+    "summary": "FINTRAC Control integration — suppliers, CRM, accounting hooks",
+    "depends": ["base", "contacts", "crm", "purchase", "account"],
+    "data": [
+        "views/fintrack_accounting_views.xml",
+    ],
     "installable": True,
     "application": False,
     "license": "LGPL-3",

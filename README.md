@@ -1,6 +1,13 @@
 ﻿# Fintrack Odoo Services
 
-Dockerized **Odoo 17** for FINTRAC Control (GetDIST) integration: supplier sync, CRM opportunities, and purchase workflows.
+Dockerized **Odoo 17** for FINTRAC Control (GetDIST) integration: supplier sync, CRM, and **accounting (Phase 0)**.
+
+## Database naming
+
+| Env | DB name | Notes |
+|-----|---------|-------|
+| **Local dev** | `fintrack_dev` | Used by GetDIST `.env` — **use this for integration** |
+| Other | `FINTRAC` | Legacy/manual DB — do not point API here |
 
 ## Quick start
 
@@ -11,21 +18,37 @@ docker compose up -d
 
 Open **http://localhost:8069** and create a database (e.g. `fintrack_dev`).
 
-## Install modules
+## Install modules (baseline + Phase 0)
 
 1. Go to **Apps** → **Update Apps List**
 2. Install:
    - **Contacts**
    - **CRM**
    - **Purchase**
-3. Install or upgrade **My Integration** (custom addon in `./addons/my_integration`)
+   - **Invoicing / Accounting** (`account`)
+   - **Morocco - Accounting** (`l10n_ma`) — Option A localization
+3. Install or upgrade **My Integration** v1.3.0+ (custom addon in `./addons/my_integration`)
 
-The addon adds Fintrack tracking fields on `res.partner` and `crm.lead`.
+The addon adds Fintrack fields on `res.partner`, `crm.lead`, `account.move`, `account.payment`, and `res.company`.
+
+### Phase 0 setup scripts (CLI)
+
+```powershell
+cd Odoo_services
+docker compose stop odoo
+docker compose run --rm odoo odoo -d fintrack_dev -i account --stop-after-init
+Get-Content scripts/setup_p0_ma.py | docker compose run --rm -T odoo odoo shell -d fintrack_dev --no-http
+Get-Content scripts/ensure_ma_purchase_taxes.py | docker compose run --rm -T odoo odoo shell -d fintrack_dev --no-http
+Get-Content scripts/verify_p0_accounting.py | docker compose run --rm -T odoo odoo shell -d fintrack_dev --no-http
+docker compose up -d odoo
+```
+
+Registry IDs: `backend/GetDIST_project/docs/odoo-id-registry.dev.md`
 
 ## API user
 
 1. **Settings → Users** → create `api_service_user`
-2. Grant access to Contacts, CRM, and Purchase
+2. Grant access to Contacts, CRM, Purchase, **Invoicing/Billing**, and **Accounting**
 3. **Preferences → Account Security → API Keys** → generate a key
 
 ## Backend configuration
@@ -51,6 +74,7 @@ Test connection:
 
 ```bash
 npm run test:odoo
+npm run test:odoo-p0
 ```
 
 ## Sync suppliers (Fintrack → Odoo)
