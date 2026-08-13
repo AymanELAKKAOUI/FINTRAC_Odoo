@@ -1,6 +1,6 @@
 {
     "name": "My Integration",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "category": "Technical",
     "summary": "FINTRAC Control integration — suppliers, CRM, accounting hooks",
     "depends": ["base", "contacts", "crm", "purchase", "account"],

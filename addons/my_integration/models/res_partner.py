@@ -10,6 +10,12 @@ class ResPartner(models.Model):
         copy=False,
         help="UUID of the supplier in FINTRAC Control (GetDIST).",
     )
+    x_fintrack_customer_id = fields.Char(
+        string="Fintrack Customer ID",
+        index=True,
+        copy=False,
+        help="UUID of the customer in FINTRAC Control (GetDIST).",
+    )
     x_fintrack_company_id = fields.Char(
         string="Fintrack Company ID",
         copy=False,
