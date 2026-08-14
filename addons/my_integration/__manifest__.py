@@ -2,7 +2,7 @@
     "name": "My Integration",
     "version": "1.4.0",
     "category": "Technical",
-    "summary": "FINTRAC Control integration — suppliers, CRM, accounting hooks",
+    "summary": "FINTRAC Control integration - suppliers, CRM, accounting hooks",
     "depends": ["base", "contacts", "crm", "purchase", "account"],
     "data": [
         "views/fintrack_accounting_views.xml",
